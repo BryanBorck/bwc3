@@ -4,9 +4,9 @@ import Header from '../../components/Header/Header';
 
 export default function Layout() {
     return (
-        <div>
+        <div className='w-[100vw] h-[100vh] bg-secondary-color flex flex-row overflow-hidden'>
             <Header />
-            <main>
+            <main className='container overflow-y-scroll'>
                 layout 
                 <Outlet />
             </main>

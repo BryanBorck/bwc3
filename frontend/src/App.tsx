@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './pages/Layout/Layout'
 import Home from './pages/Home/Home'
 import Courses from './pages/Courses/Courses'
+import CourseDetails from './pages/Courses/CourseDetail'
 import Settings from './pages/Settings/Settings'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/:id" element={<CourseDetails />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>

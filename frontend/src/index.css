@@ -18,6 +18,13 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.root,
+#root,
+#docs-root {
+  --primary-color: #fff;
+  --secondary-color: #000;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
