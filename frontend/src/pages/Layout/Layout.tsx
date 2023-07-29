@@ -6,7 +6,7 @@ export default function Layout() {
     return (
         <div className='w-[100vw] h-[100vh] bg-secondary-color flex flex-row overflow-hidden'>
             <Header />
-            <main className='container overflow-y-scroll'>
+            <main className='w-[100%] overflow-y-scroll'>
                 layout 
                 <Outlet />
             </main>

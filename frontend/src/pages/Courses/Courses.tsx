@@ -48,7 +48,7 @@ export default function Courses() {
     ))
 
     return (
-        <div className='container'>
+        <div className='w-[100%]'>
             <h1>Courses</h1>
             <div className='flex flex-wrap justify-start'>
                 {courses.length ? coursesElements : <h2>No courses found</h2>}
