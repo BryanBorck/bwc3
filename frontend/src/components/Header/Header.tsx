@@ -9,11 +9,11 @@ export default function Header() {
     }
     
     return (
-        <header className="w-[16vw] rounded-r-[15px] text-fl shadow-xl text-white bg-[url('././assets/header_bkg3.png')]">
+        <header className="w-[16vw] rounded-r-[20px] text-fl shadow-xl text-white bg-[url('././assets/header_bkg3.png')]">
             <img className="w-auto h-10 ml-[1.5vw] object-cover my-[3vh]" src={logoLine} alt="..." />
             <nav className="flex flex-col">
                 <NavLink
-                    className="pl-[2vw] py-[1vh] hover:bg-[white] hover:text-primary-color transition duration-600 ease-in-out"
+                    className="pl-[2vw] py-[1vh] hover:bg-[white] hover:text-primary-color transition duration-1000 ease-in-out"
                     to="/courses"
                     style={({isActive}) => isActive ? activeStyles : null}
                 >
