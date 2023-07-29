@@ -22,6 +22,12 @@ export default function Courses() {
             description: 'Course 3 description',
             cover: 'https://picsum.photos/seed/picsum/200/300'
         },
+        {
+            id: 4,
+            title: 'Course 4',
+            description: 'Course 4 description',
+            cover: 'https://picsum.photos/seed/picsum/200/300'
+        },
     ])
 
     // MACACO

@@ -21,17 +21,32 @@ export default function CourseDetails() {
     return (
         <div>
             {course ? (
-                <div>
-                    <h1>Course details</h1>
+                <div className='flex flex-col items-start p-4'>
                     <Link
                         to=".."
                         relative="path"
                         className="text-blue-500 hover:text-blue-800"
-                    >&larr; <span>Back to all Courses</span></Link>
-                    <div>
-                        <img src={course.cover} alt={course.title} />
-                        <h2>{course.title}</h2>
-                        <p>{course.description}</p>
+                    >&larr;
+                        <span>Back</span>
+                    </Link>
+                    <h1 className='m-2'>{course.title}</h1>
+                    <div className='w-[100%]'>
+                        {/* TROCAR IMG POR VIDEO DPS */}
+                        <img src={course.cover} alt={course.title} className='w-[100%]  max-h-96' />
+                        <section className='flex'>
+                            <div className='flex flex-col items-start w-2/3'>
+                                <h2>Description</h2>
+                                <p>{course.description}</p>
+                            </div>
+                            <div className='flex flex-col items-start w-1/3'>
+                                <h2>Items List</h2>
+                                <ul>
+                                    <li>Item 1</li>
+                                    <li>Item 2</li>
+                                    <li>Item 3</li>
+                                </ul>
+                            </div>
+                        </section>
                     </div>
                 </div>
             ) : <h2>Loading...</h2>}
