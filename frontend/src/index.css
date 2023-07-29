@@ -3,13 +3,15 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, sans-serif;
   line-height: 1.5;
-  font-weight: 400;
+  font-size: var(--font-normal);
+  font-weight: 500;
+  letter-spacing: 0.025rem;
 
   color-scheme: light dark;
-  color: #646cff;
-  background-color: #242424;
+  color: #3E8799;
+  background-color: #fff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -21,6 +23,10 @@
 .root,
 #root,
 #docs-root {
-  --primary-color: #fff;
-  --secondary-color: #000;
+  --primary-color: #5dd4aa;
+  --secondary-color: #41b9bc;
+
+  --font-large: 1.375rem;
+  --font-normal: 1.125rem;
+  --font-small: .875rem;
 }
