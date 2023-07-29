@@ -20,6 +20,13 @@ export default function Header() {
                     Courses
                 </NavLink>
                 <NavLink
+                    className="pl-[2vw] py-[1vh] hover:bg-[white] hover:text-primary-color transition duration-600 ease-in-out"
+                    to="/add-courses"
+                    style={({isActive}) => isActive ? activeStyles : null}
+                >
+                    Add Courses
+                </NavLink>
+                <NavLink
                     className="pl-[2vw] py-[1vh] hover:bg-[white] hover:text-primary-color transition duration-1000 ease-in-out"
                     to="/settings"
                     style={({isActive}) => isActive ? activeStyles : null}

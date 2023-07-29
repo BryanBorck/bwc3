@@ -6,6 +6,7 @@ import Home from './pages/Home/Home'
 import Courses from './pages/Courses/Courses'
 import CourseDetails from './pages/Courses/CourseDetail'
 import Settings from './pages/Settings/Settings'
+import AddCourses from './pages/AddCourses/AddCourses'
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
         }>
           <Route index element={<Home />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/add-courses" element={<AddCourses />} />
           <Route path="/courses/:id" element={<CourseDetails />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
