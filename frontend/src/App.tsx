@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import './App.css'
+import React from 'react'
 import ReactDom from 'react-dom'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './pages/Layout/Layout'
@@ -10,10 +9,43 @@ import Settings from './pages/Settings/Settings'
 
 function App() {
 
+  //handle Metamask wallet connection
+  const [isMetamaskInstalled, setIsMetamaskInstalled] = React.useState<boolean>(false);
+  const [account, setAccount] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    if ((window as any).ethereum) {
+      //check if Metamask wallet is installed
+      setIsMetamaskInstalled(true);
+      setAccount((window as any).ethereum.selectedAddress);
+    }
+  }, []);
+
+  async function connectWallet(): Promise<void> {
+    console.log("connectWallet");
+    //to get around type checking
+    (window as any).ethereum
+      .request({
+        method: "eth_requestAccounts",
+      })
+      .then((accounts: string[]) => {
+        setAccount(accounts[0]);
+      })
+      .catch((error: any) => {
+        console.log(`Something went wrong: ${error}`);
+      });
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={
+          <Layout
+            isMetamaskInstalled={isMetamaskInstalled}
+            connectWallet={connectWallet}
+            account={account}
+          />
+        }>
           <Route index element={<Home />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/courses/:id" element={<CourseDetails />} />
