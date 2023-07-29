@@ -8,16 +8,16 @@ export default function ConnectWalletBtn({ isMetamaskInstalled, connectWallet, a
                 isMetamaskInstalled ? (
                     <div
                         onClick={connectWallet}
-                        className='fixed right-6 top-3 p-3 bg-blue-500 hover:bg-blue-700 text-white rounded-full cursor-pointer'
+                        className='absolute w-[12vw] right-[3vw] top-[3vh] p-3 bg-secondary-color hover:bg-primary-color text-white rounded-full cursor-pointer transition duration-600 ease-in-out'
                     >
-                        <h3>{account ? "Wallet Connected: " +
+                        <h3 className='flex justify-center'>{account ? "Wallet Connected: " +
                             account.substring(0, 5) +
                             "..." +
                             account.substring(39, 42) : "Connect Wallet"}</h3>
                     </div>
                 ) : (
                     <div
-                        className='fixed right-6 top-3 p-3 bg-blue-500 hover:bg-blue-700 text-white rounded-full cursor-pointer'
+                        className='absolute w-[12vw] right-[3vw] top-[3vh] p-3 bg-secondary-color hover:bg-primary-color text-white rounded-full cursor-pointer transition duration-600 ease-in-out'
                     >
                         <a href="https://metamask.io/download/">Install Metamask</a>
                     </div>

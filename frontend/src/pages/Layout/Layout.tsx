@@ -8,14 +8,14 @@ export default function Layout({ isMetamaskInstalled, connectWallet, account }: 
     return (
         <div className='w-[100vw] h-[100vh] bg-[#f6f6f6] flex flex-row overflow-hidden'>
             <Header />
-            <main className='w-[100%] overflow-y-scroll'>
+            <main className='relative w-[100%] overflow-y-scroll'>
+                <ConnectWalletBtn
+                    isMetamaskInstalled={isMetamaskInstalled}
+                    connectWallet={connectWallet}
+                    account={account}
+                />
                 <Outlet />
             </main>
-            <ConnectWalletBtn
-                isMetamaskInstalled={isMetamaskInstalled}
-                connectWallet={connectWallet}
-                account={account}
-            />
         </div>
     )
 }
