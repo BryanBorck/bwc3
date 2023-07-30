@@ -7,6 +7,7 @@ import Courses from './pages/Courses/Courses'
 import CourseDetails from './pages/Courses/CourseDetail'
 import Settings from './pages/Settings/Settings'
 import AddCourses from './pages/AddCourses/AddCourses'
+import Info from './pages/Info/Info'
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/info" element={<Info />} />
         <Route path="/" element={
           <Layout
             isMetamaskInstalled={isMetamaskInstalled}
