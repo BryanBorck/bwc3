@@ -1,10 +1,10 @@
-# Good Stream - BWC3 Hackathon 2023
+# GoodStream - BWC3 Hackathon 2023
 
 _Built with Celo Superfluid and GoodDollar_
 
 ## Introduction
 
-Good Stream is a web app designed to leverage donations to communities. Using superfluid, we provide a way to make an exchange of use time in money donated and using Good Dollar, we can donate money to support communities. Our goal is to make a whole ecossystem to provide knowledge and support basic income to a lot of people using Good Dollar.
+GoodStream is a web app designed to leverage donations to communities. Using superfluid, we provide a way to make an exchange of use time in money donated and using Good Dollar, we can donate money to support communities. Our goal is to make a whole ecossystem to provide knowledge and support basic income to a lot of people using Good Dollar.
 
 ## Problem & Solution
 
