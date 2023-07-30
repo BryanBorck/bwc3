@@ -1,4 +1,13 @@
 import React from 'react';
+import Step1 from '../../components/Forms/Step1';
+import Step2 from '../../components/Forms/Step2';
+
+interface Modules {
+    id: number;
+    title: string;
+    link: string;
+    details: string;
+}
 
 export default function AddCourses() {
     const [step, setStep] = React.useState(1);
@@ -15,9 +24,31 @@ export default function AddCourses() {
     const [category, setCategory] = React.useState('');
     const [dificulty, setDificulty] = React.useState('');
     const [duration, setDuration] = React.useState('');
-    const [numModules, setNumModules] = React.useState(0);
-    const [modules, setModules] = React.useState({});
+    //module data
+    const [modules, setModules] = React.useState<Modules[]>([]);
+    const [inputTitle, setInputTitle] = React.useState('');
+    const [inputLink, setInputLink] = React.useState('');
+    const [inputDetails, setInputDetails] = React.useState('');
 
+    const handleAddModule = () => {
+        if (inputTitle.trim() !== '' && inputLink.trim() !== '' && inputDetails.trim() !== '') {
+            const newModule: Modules = {
+                id: Date.now(),
+                title: inputTitle,
+                link: inputLink,
+                details: inputDetails
+            };
+
+            setModules([...modules, newModule]);
+            setInputTitle('');
+            setInputLink('');
+            setInputDetails('');
+        }
+    };
+
+    const handleDeleteModule = (id: number) => {
+        setModules(modules.filter(module => module.id !== id));
+    };
 
     const handleNext = () => {
         setStep(step + 1);
@@ -86,6 +117,14 @@ export default function AddCourses() {
                         setDuration={setDuration}
                         modules={modules}
                         setModules={setModules}
+                        inputTitle={inputTitle}
+                        setInputTitle={setInputTitle}
+                        inputLink={inputLink}
+                        setInputLink={setInputLink}
+                        inputDetails={inputDetails}
+                        setInputDetails={setInputDetails}
+                        handleAddModule={handleAddModule}
+                        handleDeleteModule={handleDeleteModule}
                     />
                 }
                 <div className="flex justify-between mt-6">
@@ -118,153 +157,3 @@ export default function AddCourses() {
         </div>
     );
 };
-
-// Personal Information
-const Step1 = (props: any) => (
-    <div>
-        <h3 className="text-lg font-medium mb-4">Step 1 - Personal Information</h3>
-        <div className="mb-4">
-            <label className="block font-medium mb-2 text-gray-700" htmlFor="name">
-                Name
-            </label>
-            <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder='Author Name'
-                value={props.author}
-                onChange={(e) => props.setAuthor(e.target.value)}
-                className="w-full border bg-[white] border-primary-color p-2"
-            />
-        </div>
-        <div className="mb-4">
-            <label className="block font-medium mb-2 text-gray-700" htmlFor="experience">
-                Experience
-            </label>
-            <input
-                type="text"
-                id="experience"
-                name="experience"
-                placeholder='Author Experience'
-                value={props.experience}
-                onChange={(e) => props.setExperience(e.target.value)}
-                className="w-full border bg-[white] border-primary-color p-2"
-            />
-        </div>
-        <div className="mb-4">
-            <label className="block font-medium mb-2 text-gray-700" htmlFor="email">
-                Email
-            </label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder='abc123@at.com'
-                value={props.email}
-                onChange={(e) => props.setEmail(e.target.value)}
-                className="w-full border bg-[white] border-primary-color p-2"
-            />
-        </div>
-        <div className="mb-4">
-            <label className="block font-medium mb-2 text-gray-700" htmlFor="linkedin">
-                Linkedin
-            </label>
-            <input
-                type="text"
-                id="linkedin"
-                name="linkedin"
-                placeholder='Ex: Linkedin/myLinkedin'
-                value={props.linkedin}
-                onChange={(e) => props.setLinkedin(e.target.value)}
-                className="w-full border bg-[white] border-primary-color p-2"
-            />
-        </div>
-    </div>
-);
-
-// Course Information
-const Step2 = (props: any) => (
-    <div>
-        <h3 className="text-lg font-medium mb-4">Step 2 - Course Information</h3>
-        <div className="mb-4">
-            <label className="block font-medium mb-2 text-gray-700" htmlFor="title">
-                Course Title
-            </label>
-            <input
-                type="text"
-                id="title"
-                name="title"
-                placeholder='Ex: Cool Course ;)'
-                value={props.title}
-                onChange={(e) => props.setTitle(e.target.value)}
-                className="w-full border bg-[white] border-primary-color p-2"
-            />
-        </div>
-        <div className="mb-4">
-            <label className="block font-medium mb-2 text-gray-700" htmlFor="description">
-                Course Description
-            </label>
-            <input
-                type="text"
-                id="description"
-                name="description"
-                placeholder='Ex: 24'
-                value={props.description}
-                onChange={(e) => props.setDescription(e.target.value)}
-                className="w-full border bg-[white] border-primary-color p-2"
-            />
-        </div>
-        <div className='flex justify-evenly'>
-            <div className="mb-4">
-                <label className="block font-medium mb-2 text-gray-700" htmlFor="category">
-                    Category
-                </label>
-                <select name="category" id="category" className="w-11/12 border bg-[white] border-primary-color p-2" value={props.category} onChange={(e) => props.setCategory(e.target.value)}>
-                    <option value="">Select a Category</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                </select>
-            </div>
-            <div className="mb-4">
-                <label className="block font-medium mb-2 text-gray-700" htmlFor="dificulty">
-                    Dificulty Level
-                </label>
-                <select name="dificulty" id="dificulty" className="w-11/12 border bg-[white] border-primary-color p-2" value={props.dificulty} onChange={(e) => props.setDificulty(e.target.value)}>
-                    <option value="">Select a Dificulty</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                </select>
-            </div>
-            <div className="mb-4">
-                <label className="block font-medium mb-2 text-gray-700" htmlFor="duration">
-                    Course Duration
-                </label>
-                <input
-                    type="number"
-                    id="duration"
-                    name="duration"
-                    placeholder='Ex: 24'
-                    value={props.duration}
-                    onChange={(e) => props.setDuration(e.target.value)}
-                    className="w-11/12 border bg-[white] border-primary-color p-2"
-                />
-            </div>
-        </div>
-        <div className="mb-4">
-                <label className="block font-medium mb-2 text-gray-700" htmlFor="numModules">
-                    Modules
-                </label>
-                <input
-                    type="number"
-                    id="numModules"
-                    name="numModules"
-                    placeholder='Ex: 3'
-                    value={props.numModules}
-                    onChange={(e) => props.setNumModules(e.target.value)}
-                    className="w-full border bg-[white] border-primary-color p-2"
-                />
-            </div>
-    </div>
-);
