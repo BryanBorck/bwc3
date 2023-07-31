@@ -34,7 +34,7 @@ export default function Header() {
                     Settings
                 </NavLink>
                 <NavLink
-                    className="mt-[60vh] pl-[2vw] py-[1vh] font-light hover:bg-[white] hover:text-primary-color transition duration-1000 ease-in-out"
+                    className="mt-[50vh] pl-[2vw] py-[1vh] font-light hover:bg-[white] hover:text-primary-color transition duration-1000 ease-in-out"
                     to="/"
                     style={({isActive}) => isActive ? activeStyles : null}
                 >
