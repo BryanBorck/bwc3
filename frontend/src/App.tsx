@@ -41,7 +41,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/info" element={<Info />} />
+        <Route path="/" element={<Home />} />
         <Route path="/" element={
           <Layout
             isMetamaskInstalled={isMetamaskInstalled}
@@ -49,7 +49,6 @@ function App() {
             account={account}
           />
         }>
-          <Route index element={<Home />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/add-courses" element={<AddCourses />} />
           <Route path="/courses/:id" element={<CourseDetails />} />
