@@ -37,7 +37,7 @@ export default function Home() {
                                     <p className='text-gray-600 text-center italic font-light'>You can create a video course and share your experience to impact people and leverage donations</p>
                                 </div>
                                 <div className='grid grid-col justify-center w-[100%]'>
-                                    <NavLink className='w-[18vw] h-[6vh] text-center text-xl px-5 py-2 bg-secondary-color text-white hover:bg-primary-color rounded-full cursor-pointer transition duration-1000 ease-in-out' to="/courses">Contribute</NavLink>
+                                    <NavLink className='w-[18vw] h-[6vh] text-center text-xl px-5 py-2 bg-secondary-color text-white hover:bg-primary-color rounded-full cursor-pointer transition duration-1000 ease-in-out' to="/add-courses">Contribute</NavLink>
                                 </div>
                             </div>
                             <div className='grid grid-col justify-center w-[22vw] h-[60vh] text-secondary-color shadow-md rounded-[15px] bg-[white] hover:bg-[#f6f6f6]'>
