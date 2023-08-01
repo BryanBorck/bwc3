@@ -9,6 +9,7 @@ export default function CourseDetails() {
     const { id } = useParams<{ id: string }>();
 
     const [enabled, setEnabled] = React.useState(false);
+    const [money, setMoney] = React.useState(0);
 
     const [course, setCourse] = React.useState({
         // TESTE
@@ -18,11 +19,11 @@ export default function CourseDetails() {
         cover: 'https://picsum.photos/seed/picsum/200/300'
     });
 
-    let rate = 100000000000000000;
+    let rate = 1000000000000000;
     const ratePrint = 0.1
 
     async function handleStreaming() {
-        if(!window.confirm(`Do you want to start streaming?\n You will be paying ${ratePrint} DAI per minute`)) {
+        if(!window.confirm(`Do you want to start streaming?\n You will be paying ${ratePrint} fDAIx per minute`)) {
             return;
         }
         try{
@@ -62,6 +63,9 @@ export default function CourseDetails() {
                 await flowOp.exec(superSigner);
             }
             setEnabled(true);
+            setInterval(() => {
+                setMoney(money => money + ratePrint/6000);
+            }, 10);
         } catch (err) {
             console.log(err);
             window.alert("Error while streaming");
@@ -107,6 +111,7 @@ export default function CourseDetails() {
                                     cursor: "pointer"
                                 }}
                                 width="100%" height="500vh" src="https://www.youtube.com/embed/X6y42QbVSp4?start=1" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+                                <p>Amount paid: {Number(money).toFixed(4)}</p>
                             </div>
 
                             <section className='flex mt-[3vh]'>
