@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { connectMetamask } from '../../utils/connectMetamask';
 import { ethers } from 'ethers';
 import { goodStremNFTABI } from '../../artifacts/GoodStreamNFT';
+import axios from 'axios';
 
 interface Modules {
     id: number;
@@ -97,28 +98,27 @@ export default function AddCourses() {
             modules
         )
         //MANDA PRO DB
-        fetch("http://localhost:3001/add-course", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                author,
-                experience,
-                email,
-                linkedin,
-                title,
-                description,
-                category,
-                dificulty,
-                duration,
-                modules
-            }),
-        })
-        .then(async  (response) => {
+        const url = "http://localhost:3001/course";
+        
+        const body ={
+            author,
+            experience,
+            email,
+            linkedin,
+            title,
+            description,
+            category,
+            dificulty,
+            duration,
+            modules
+        }
+
+
+        axios.post(url, body)
+        .then(async  (response: any) => {
             await mintNFT();
         })
-        .catch(async (data) => {
+        .catch(async (data: any) => {
             await mintNFT();
             console.log(data);
         });
