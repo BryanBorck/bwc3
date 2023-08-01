@@ -7,13 +7,15 @@ import Courses from './pages/Courses/Courses'
 import CourseDetails from './pages/Courses/CourseDetail'
 import Settings from './pages/Settings/Settings'
 import AddCourses from './pages/AddCourses/AddCourses'
-import Info from './pages/Info/Info'
+import { connectMetamask } from './utils/connectMetamask'
 
 function App() {
 
   //handle Metamask wallet connection
   const [isMetamaskInstalled, setIsMetamaskInstalled] = React.useState<boolean>(false);
   const [account, setAccount] = React.useState<string | null>(null);
+  const [provider, setProvider] = React.useState<any>(null);
+  const [signer, setSigner] = React.useState<any>(null);
 
   React.useEffect(() => {
     if ((window as any).ethereum) {
@@ -24,18 +26,10 @@ function App() {
   }, []);
 
   async function connectWallet(): Promise<void> {
-    console.log("connectWallet");
-    //to get around type checking
-    (window as any).ethereum
-      .request({
-        method: "eth_requestAccounts",
-      })
-      .then((accounts: string[]) => {
-        setAccount(accounts[0]);
-      })
-      .catch((error: any) => {
-        console.log(`Something went wrong: ${error}`);
-      });
+    const connection = await connectMetamask();
+    setAccount(connection?.address);
+    setProvider(connection?.web3Provider);
+    setSigner(connection?.web3Signer);
   }
 
   return (
@@ -47,6 +41,8 @@ function App() {
             isMetamaskInstalled={isMetamaskInstalled}
             connectWallet={connectWallet}
             account={account}
+            provider={provider}
+            signer={signer}
           />
         }>
           <Route path="/courses" element={<Courses />} />

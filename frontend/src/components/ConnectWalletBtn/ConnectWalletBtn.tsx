@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ConnectWalletBtn({ isMetamaskInstalled, connectWallet, account }: { isMetamaskInstalled: boolean; connectWallet: any; account: string | null; }) {
+export default function ConnectWalletBtn({ isMetamaskInstalled, connectWallet, account, provider, signer }: { isMetamaskInstalled: boolean; connectWallet: any; account: string | null; provider: any; signer: any}) {
 
     return (
         <>
