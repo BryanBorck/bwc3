@@ -53,8 +53,11 @@ npm run dev
 
 ## Presentation, Deployed App and Live Demo
 
+[Presentation](https://he-s3.s3.amazonaws.com/media/sprint/lancelot-hackathon-3/team/1800630/e7d883agoodstream___b_wc_series_3.pdf)
 
+[Deployed App](https://he-s3.s3.amazonaws.com/media/sprint/lancelot-hackathon-3/team/1800630/e7d883agoodstream___b_wc_series_3.pdf)
 
+[Live Demo](https://he-s3.s3.amazonaws.com/media/sprint/lancelot-hackathon-3/team/1800630/e7d883agoodstream___b_wc_series_3.pdf)
 
 ## Team
 
