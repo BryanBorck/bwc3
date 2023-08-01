@@ -1,52 +1,73 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Courses() {
-    const [courses, setCourses] = React.useState([
-        // TESTE
-        {
-            id: 1,
-            title: 'Course 1',
-            description: 'Course 1 description',
-            cover: 'https://picsum.photos/seed/picsum/200/300'
-        },
-        {
-            id: 2,
-            title: 'Course 2',
-            description: 'Course 2 description',
-            cover: 'https://picsum.photos/seed/picsum/200/300'
-        },
-        {
-            id: 3,
-            title: 'Course 3',
-            description: 'Course 3 description',
-            cover: 'https://picsum.photos/seed/picsum/200/300'
-        },
-        {
-            id: 4,
-            title: 'Course 4',
-            description: 'Course 4 description',
-            cover: 'https://picsum.photos/seed/picsum/200/300'
-        },
-        {
-            id: 5,
-            title: 'Course 5',
-            description: 'Course 5 description',
-            cover: 'https://picsum.photos/seed/picsum/200/300'
-        },
-        {
-            id: 6,
-            title: 'Course 6',
-            description: 'Course 6 description',
-            cover: 'https://picsum.photos/seed/picsum/200/300'
-        },
-        {
-            id: 7,
-            title: 'Course 7',
-            description: 'Course 7 description',
-            cover: 'https://picsum.photos/seed/picsum/200/300'
-        },
-    ])
+    // const [courses, setCourses] = React.useState([
+    //     // TESTE
+    //     {
+    //         id: 1,
+    //         title: 'Course 1',
+    //         description: 'Course 1 description',
+    //         cover: 'https://picsum.photos/seed/picsum/200/300'
+    //     },
+    //     {
+    //         id: 2,
+    //         title: 'Course 2',
+    //         description: 'Course 2 description',
+    //         cover: 'https://picsum.photos/seed/picsum/200/300'
+    //     },
+    //     {
+    //         id: 3,
+    //         title: 'Course 3',
+    //         description: 'Course 3 description',
+    //         cover: 'https://picsum.photos/seed/picsum/200/300'
+    //     },
+    //     {
+    //         id: 4,
+    //         title: 'Course 4',
+    //         description: 'Course 4 description',
+    //         cover: 'https://picsum.photos/seed/picsum/200/300'
+    //     },
+    //     {
+    //         id: 5,
+    //         title: 'Course 5',
+    //         description: 'Course 5 description',
+    //         cover: 'https://picsum.photos/seed/picsum/200/300'
+    //     },
+    //     {
+    //         id: 6,
+    //         title: 'Course 6',
+    //         description: 'Course 6 description',
+    //         cover: 'https://picsum.photos/seed/picsum/200/300'
+    //     },
+    //     {
+    //         id: 7,
+    //         title: 'Course 7',
+    //         description: 'Course 7 description',
+    //         cover: 'https://picsum.photos/seed/picsum/200/300'
+    //     },
+    // ])
+
+    const [courses, setCourses] = React.useState<{
+        id: number,
+        title: string,
+        description: string,
+        cover: string
+    }[]>([])
+
+    React.useEffect(() => {
+        const url = 'http://localhost:3001/courses'
+        axios.get(url)
+            .then(response => {
+                setCourses(response.data)
+            })
+            .catch(error => {
+                console.log(error);
+                window.alert("Error");
+            })
+    }, [])
+
 
     // MACACO
     // React.useEffect(() => {
