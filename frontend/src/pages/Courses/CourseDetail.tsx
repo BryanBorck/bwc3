@@ -18,10 +18,11 @@ export default function CourseDetails() {
         cover: 'https://picsum.photos/seed/picsum/200/300'
     });
 
-    const rate = 0.1 * 60;
+    let rate = 100000000000000000;
+    const ratePrint = 0.1
 
     async function handleStreaming() {
-        if(!window.confirm(`Do you want to start streaming?\n You will be paying ${rate} ETH per minute`)) {
+        if(!window.confirm(`Do you want to start streaming?\n You will be paying ${ratePrint} DAI per minute`)) {
             return;
         }
         try{
@@ -41,19 +42,30 @@ export default function CourseDetails() {
             const superSigner = sf.createSigner({ signer: signer });
 
             const tokenPayment = await sf.loadSuperToken("fDAIx");
-            let flowOp = tokenPayment.createFlow({
-                sender: account as string,
-                receiver: "0xe4710FCF17dfB136dd0818cC92388B94e7822570",
-                flowRate: rate.toString()
-            });
+            let flowOp = null;
+            try{
+                let flowOp = tokenPayment.createFlow({
+                    sender: account as string,
+                    receiver: "0xab53369e91dcFC275744DC0A30BD3E363B2785e0",
+                    flowRate: rate.toString()
+                });
+            
 
-            await flowOp.exec(superSigner);
+                await flowOp.exec(superSigner);
+            }catch {
+                console.log("Flow already exists");
+                let flowOp = tokenPayment.updateFlow({
+                    sender: account as string,
+                    receiver: "0xab53369e91dcFC275744DC0A30BD3E363B2785e0",
+                    flowRate: rate.toString()
+                });
+                await flowOp.exec(superSigner);
+            }
             setEnabled(true);
         } catch (err) {
             console.log(err);
             window.alert("Error while streaming");
         }
-
     }
 
     // MACACO
