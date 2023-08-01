@@ -33,7 +33,7 @@ export default function CourseDetails() {
     }>();
 
     React.useEffect(() => {
-        const url = `http://localhost:3001/courses/${id}`
+        const url = `http://localhost:3001/course/${id}`
         axios.get(url).then(response => {
             const tmp = {
                 id: response.data.id,
@@ -49,7 +49,7 @@ export default function CourseDetails() {
 
             setCourse({...tmp});
         })
-    }, [id])
+    }, [])
 
 
     let rate = 1000000000000000;
@@ -104,6 +104,7 @@ export default function CourseDetails() {
             window.alert("Error while streaming");
         }
     }
+    console.log(course)
 
     async function deleteStreaming(event:any) {
         event.stopPropagation();
@@ -162,6 +163,7 @@ export default function CourseDetails() {
                         <div className='w-[75%]'>
                             {/* TROCAR IMG POR VIDEO DPS */}
 
+
                             <div
                                 onClick={handleStreaming}
                                 style={{
@@ -176,7 +178,7 @@ export default function CourseDetails() {
                                     width="100%" height="500vh" src={course.module_link} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
                                 <div className='flex w-[100%] justify-between p-2 absolute bottom-1 items-center'>
                                     <p className='bg-white bg-opacity-25 py-1 px-2 rounded'>Amount paid: {Number(money).toFixed(4)}</p>
-                                    <button onClick={(event) => deleteStreaming(event)} className='bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500'>Delete Stream</button>
+                                    <button onClick={deleteStreaming} className='bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500'>Delete Stream</button>
                                 </div>
                             </div>
 
