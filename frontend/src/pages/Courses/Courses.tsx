@@ -60,7 +60,16 @@ export default function Courses() {
         const url = 'http://localhost:3001/courses'
         axios.get(url)
             .then(response => {
-                setCourses(response.data)
+                
+                let tmp = response.data.map((course: any) => {
+                    return {
+                        id: course.id,
+                        title: course.title,
+                        description: course.description,
+                        cover: "https://i.ytimg.com/vi/zlJ20s5d9To/maxresdefault.jpg"
+                    }
+                });
+                setCourses([...tmp]);
             })
             .catch(error => {
                 console.log(error);

@@ -26,6 +26,21 @@ app.get('/courses', async (req, res) => {
   }
 });
 
+app.get('/course/:id', async (req, res) => {
+  try {
+    const courses = await getcourses();
+    const course = courses.find((course) => course.id === Number(req.params.id));
+    if (course) {
+      res.status(200).send(course);
+    } else {
+      res.status(404).send('Not found');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
 app.post('/course', async (req, res) => {
   console.log(req.body);
   try {
