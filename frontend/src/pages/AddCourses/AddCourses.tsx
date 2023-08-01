@@ -1,6 +1,7 @@
 import React from 'react';
 import Step1 from '../../components/Forms/Step1';
 import Step2 from '../../components/Forms/Step2';
+import { NavLink } from 'react-router-dom';
 
 interface Modules {
     id: number;
@@ -136,12 +137,15 @@ export default function AddCourses() {
                             >
                                 Back
                             </button>
-                            <button
-                                className="bg-primary-color px-6 py-1.5 rounded-lg text-white hover:bg-secondary-color"
-                                onClick={handleSubmit}
-                            >
-                                Submit
-                            </button>
+                            <NavLink to="/success">
+                                <button
+                                    className="bg-primary-color px-6 py-1.5 rounded-lg text-white hover:bg-secondary-color"
+                                    onClick={handleSubmit}
+                                >
+                                    Submit
+
+                                </button>
+                            </NavLink>
                         </>
                     )}
                     {step < 2 && (
