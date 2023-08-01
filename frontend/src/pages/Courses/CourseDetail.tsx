@@ -23,12 +23,12 @@ export default function CourseDetails() {
     const ratePrint = 0.1
 
     async function handleStreaming() {
-        if(!window.confirm(`Do you want to start streaming?\n You will be paying ${ratePrint} fDAIx per minute`)) {
+        if (!window.confirm(`Do you want to start streaming?\n You will be paying ${ratePrint} fDAIx per minute`)) {
             return;
         }
-        try{
+        try {
             const connection = await connectMetamask();
-            const provider  = connection?.web3Provider;
+            const provider = connection?.web3Provider;
             const signer = connection?.web3Signer;
             const account = connection?.address;
 
@@ -44,16 +44,16 @@ export default function CourseDetails() {
 
             const tokenPayment = await sf.loadSuperToken("fDAIx");
             let flowOp = null;
-            try{
+            try {
                 let flowOp = tokenPayment.createFlow({
                     sender: account as string,
                     receiver: "0xab53369e91dcFC275744DC0A30BD3E363B2785e0",
                     flowRate: rate.toString()
                 });
-            
+
 
                 await flowOp.exec(superSigner);
-            }catch {
+            } catch {
                 console.log("Flow already exists");
                 let flowOp = tokenPayment.updateFlow({
                     sender: account as string,
@@ -64,7 +64,7 @@ export default function CourseDetails() {
             }
             setEnabled(true);
             setInterval(() => {
-                setMoney(money => money + ratePrint/6000);
+                setMoney(money => money + ratePrint / 6000);
             }, 10);
         } catch (err) {
             console.log(err);
@@ -72,10 +72,11 @@ export default function CourseDetails() {
         }
     }
 
-    async function deleteStreaming() {
-        try{
+    async function deleteStreaming(event:any) {
+        event.stopPropagation();
+        try {
             const connection = await connectMetamask();
-            const provider  = connection?.web3Provider;
+            const provider = connection?.web3Provider;
             const signer = connection?.web3Signer;
             const account = connection?.address;
 
@@ -91,15 +92,15 @@ export default function CourseDetails() {
                 sender: account as string,
                 receiver: "0xab53369e91dcFC275744DC0A30BD3E363B2785e0"
             });
-            
-            await flowOp.exec(superSigner );
+
+            await flowOp.exec(superSigner);
             setEnabled(false);
         } catch (err) {
             console.log(err);
             window.alert("Error while deleting stream");
         }
     }
-        
+
 
     // MACACO
     // React.useEffect(() => {
@@ -127,20 +128,23 @@ export default function CourseDetails() {
                     <div className='flex flex-row w-full'>
                         <div className='w-[75%]'>
                             {/* TROCAR IMG POR VIDEO DPS */}
-                            
-                            <div 
-                            onClick={handleStreaming}
-                            style={{
-                                cursor: "pointer"
-                            }}
-                            className='w-[100%] max-h-[65vh] shadow-md rounded-[15px]' >
-                                <iframe 
-                                 style={{
-                                    pointerEvents: enabled ? 'all': 'none',
+
+                            <div
+                                onClick={handleStreaming}
+                                style={{
                                     cursor: "pointer"
                                 }}
-                                width="100%" height="500vh" src="https://www.youtube.com/embed/X6y42QbVSp4?start=1" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-                                <p>Amount paid: {Number(money).toFixed(4)}</p>
+                                className='w-[100%] max-h-[65vh] shadow-md rounded-[15px] relative' >
+                                <iframe
+                                    style={{
+                                        pointerEvents: enabled ? 'all' : 'none',
+                                        cursor: "pointer"
+                                    }}
+                                    width="100%" height="500vh" src="https://www.youtube.com/embed/X6y42QbVSp4?start=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+                                <div className='flex w-[100%] justify-between p-2 absolute bottom-1 items-center'>
+                                    <p className='bg-white bg-opacity-25 py-1 px-2 rounded'>Amount paid: {Number(money).toFixed(4)}</p>
+                                    <button onClick={(event) => deleteStreaming(event)} className='bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500'>Delete Stream</button>
+                                </div>
                             </div>
 
                             <section className='flex mt-[3vh]'>
@@ -152,9 +156,9 @@ export default function CourseDetails() {
                                     <h2 className='text-fn text-black mb-[2vh]'>About this course</h2>
                                     <ul className='text-fs text-gray-400 w-full'>
                                         <li className='py-[1vh]'>Category: Engineering</li>
-                                        <div className='h-[2px] bg-[#f6f6f6]'/>
+                                        <div className='h-[2px] bg-[#f6f6f6]' />
                                         <li className='py-[1vh]'>Level: Intermediary</li>
-                                        <div className='h-[2px] bg-[#f6f6f6]'/>
+                                        <div className='h-[2px] bg-[#f6f6f6]' />
                                         <li className='py-[1vh]'>Hours: 12</li>
                                     </ul>
                                 </div>
@@ -165,11 +169,11 @@ export default function CourseDetails() {
                                 <h2 className='text-fn text-black p-[2vh]'>Course Program</h2>
                                 <ul>
                                     <li className='text-fn pl-[2vh] py-[1.5vh] hover:bg-[#f6f6f6] cursor-pointer transition duration-600'>Modulo 1</li>
-                                    <div className='h-[2px] mx-[1.5vh] bg-[#f6f6f6]'/>
+                                    <div className='h-[2px] mx-[1.5vh] bg-[#f6f6f6]' />
                                     <li className='text-fn pl-[2vh] py-[1.5vh] hover:bg-[#f6f6f6] cursor-pointer transition duration-600'>Modulo 2</li>
-                                    <div className='h-[2px] mx-[1.5vh] bg-[#f6f6f6]'/>
+                                    <div className='h-[2px] mx-[1.5vh] bg-[#f6f6f6]' />
                                     <li className='text-fn pl-[2vh] py-[1.5vh] hover:bg-[#f6f6f6] cursor-pointer transition duration-600'>Modulo 3</li>
-                                    <div className='h-[2px] mx-[1.5vh] bg-[#f6f6f6]'/>
+                                    <div className='h-[2px] mx-[1.5vh] bg-[#f6f6f6]' />
                                     <li className='text-fn pl-[2vh] py-[1.5vh] mb-[2vh] hover:bg-[#f6f6f6] cursor-pointer transition duration-600'>Modulo 4</li>
                                 </ul>
                             </div>
