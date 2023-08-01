@@ -72,6 +72,35 @@ export default function CourseDetails() {
         }
     }
 
+    async function deleteStreaming() {
+        try{
+            const connection = await connectMetamask();
+            const provider  = connection?.web3Provider;
+            const signer = connection?.web3Signer;
+            const account = connection?.address;
+
+            const sf = await Framework.create({
+                chainId: 80001,
+                provider: provider as ethers.providers.Web3Provider,
+            });
+
+
+            const superSigner = sf.createSigner({ signer: signer });
+            const tokenPayment = await sf.loadSuperToken("fDAIx");
+            let flowOp = tokenPayment.deleteFlow({
+                sender: account as string,
+                receiver: "0xab53369e91dcFC275744DC0A30BD3E363B2785e0"
+            });
+            
+            await flowOp.exec(superSigner );
+            setEnabled(false);
+        } catch (err) {
+            console.log(err);
+            window.alert("Error while deleting stream");
+        }
+    }
+        
+
     // MACACO
     // React.useEffect(() => {
     //     fetch(`/api/courses/${id}`)
