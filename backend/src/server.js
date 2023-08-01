@@ -1,5 +1,9 @@
-const express = require('express');
-const courseModel = require('./course_model');
+
+import "./setup.js";
+
+
+import express from 'express';
+import { createcourses, getcourses } from "./courseModel.js";
 
 const app = express();
 const port = 3001;
@@ -13,21 +17,27 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/', async (req, res) => {
+app.get('/courses', async (req, res) => {
   try {
-    const credits = await courseModel.getcourses();
-    res.status(200).send(credits);
+    const courses = await getcourses();
+    res.status(200).send(courses);
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-app.post('/add-course', async (req, res) => {
+app.post('/course', async (req, res) => {
   try {
-    const credit = await courseModel.createcourse(req.body);
-    res.status(200).send(credit);
+    const tx = await createcourses(req.body);
+    if(!tx){
+      console.log("ERROR");
+      console.log(tx)
+      return res.status(500).send("ERROR");
+    }
+    return res.status(201).send("CREATED");
   } catch (error) {
-    res.status(500).send(error);
+    console.log(error);
+    return res.status(500).send("ERROR");
   }
 });
 
