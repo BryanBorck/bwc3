@@ -2,6 +2,8 @@
   "dependencies": {
     "@superfluid-finance/sdk-core": "^0.6.8",
     "ethers": "^5.7.2",
-    "graphql": "^16.7.1"
+    "graphql": "^16.7.1",
+    "install": "^0.13.0",
+    "npm": "^9.8.1"
   }
 }
