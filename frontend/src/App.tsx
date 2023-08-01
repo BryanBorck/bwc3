@@ -48,7 +48,7 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/add-courses" element={<AddCourses />} />
           <Route path="/courses/:id" element={<CourseDetails />} />
-          <Route path="/success" element={<Success />} />
+          <Route path="/success/:tx" element={<Success />} />
         </Route>
       </Routes>
     </BrowserRouter>

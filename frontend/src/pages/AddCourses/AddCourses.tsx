@@ -1,7 +1,10 @@
 import React from 'react';
 import Step1 from '../../components/Forms/Step1';
 import Step2 from '../../components/Forms/Step2';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { connectMetamask } from '../../utils/connectMetamask';
+import { ethers } from 'ethers';
+import { goodStremNFTABI } from '../../artifacts/GoodStreamNFT';
 
 interface Modules {
     id: number;
@@ -11,6 +14,9 @@ interface Modules {
 }
 
 export default function AddCourses() {
+
+    const history = useNavigate();
+
     const [step, setStep] = React.useState(1);
 
     //author data
@@ -59,7 +65,25 @@ export default function AddCourses() {
         setStep(step - 1);
     };
 
-    function handleSubmit() {
+    async function mintNFT(){
+        try{
+            const connection = await connectMetamask();
+            const account = connection?.address;
+            const provider = connection?.web3Provider;
+            const signer = connection?.web3Signer;
+
+            const nftcontract = new ethers.Contract("0x2670FD8f2328aa9311da878FAD0bD567Fc674e0F", goodStremNFTABI, signer);
+            console.log(nftcontract);
+            const tx = await nftcontract.functions.safeMint(account, "https://i.ibb.co/WxypJxx/nft-goodstream.png");
+            await tx.wait();
+            const url = `/success/${tx.hash}`;
+            history(url);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function handleSubmit() {
         console.log(
             author,
             experience,
@@ -91,12 +115,13 @@ export default function AddCourses() {
                 modules
             }),
         })
-            .then((response) => {
-                return response.text();
-            })
-            .then((data) => {
-                console.log(data);
-            });
+        .then(async  (response) => {
+            await mintNFT();
+        })
+        .catch(async (data) => {
+            await mintNFT();
+            console.log(data);
+        });
     }
 
     return (
@@ -162,7 +187,6 @@ export default function AddCourses() {
                             >
                                 Back
                             </button>
-                            <NavLink to="/success">
                                 <button
                                     className="bg-primary-color px-6 py-1.5 rounded-lg text-white hover:bg-secondary-color"
                                     onClick={handleSubmit}
@@ -170,7 +194,6 @@ export default function AddCourses() {
                                     Submit
 
                                 </button>
-                            </NavLink>
                         </>
                     )}
                     {step < 2 && (
