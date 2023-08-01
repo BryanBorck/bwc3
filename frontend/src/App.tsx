@@ -5,7 +5,7 @@ import Layout from './pages/Layout/Layout'
 import Home from './pages/Home/Home'
 import Courses from './pages/Courses/Courses'
 import CourseDetails from './pages/Courses/CourseDetail'
-import Settings from './pages/Settings/Settings'
+import Success from './pages/Success/Success'
 import AddCourses from './pages/AddCourses/AddCourses'
 import { connectMetamask } from './utils/connectMetamask'
 
@@ -48,7 +48,7 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/add-courses" element={<AddCourses />} />
           <Route path="/courses/:id" element={<CourseDetails />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/success" element={<Success />} />
         </Route>
       </Routes>
     </BrowserRouter>

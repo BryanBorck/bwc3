@@ -1,6 +1,7 @@
 import React from 'react';
 import Step1 from '../../components/Forms/Step1';
 import Step2 from '../../components/Forms/Step2';
+import { NavLink } from 'react-router-dom';
 
 interface Modules {
     id: number;
@@ -71,6 +72,31 @@ export default function AddCourses() {
             duration,
             modules
         )
+        //MANDA PRO DB
+        fetch("http://localhost:3001/add-course", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                author,
+                experience,
+                email,
+                linkedin,
+                title,
+                description,
+                category,
+                dificulty,
+                duration,
+                modules
+            }),
+        })
+            .then((response) => {
+                return response.text();
+            })
+            .then((data) => {
+                console.log(data);
+            });
     }
 
     return (
@@ -136,12 +162,15 @@ export default function AddCourses() {
                             >
                                 Back
                             </button>
-                            <button
-                                className="bg-primary-color px-6 py-1.5 rounded-lg text-white hover:bg-secondary-color"
-                                onClick={handleSubmit}
-                            >
-                                Submit
-                            </button>
+                            <NavLink to="/success">
+                                <button
+                                    className="bg-primary-color px-6 py-1.5 rounded-lg text-white hover:bg-secondary-color"
+                                    onClick={handleSubmit}
+                                >
+                                    Submit
+
+                                </button>
+                            </NavLink>
                         </>
                     )}
                     {step < 2 && (
