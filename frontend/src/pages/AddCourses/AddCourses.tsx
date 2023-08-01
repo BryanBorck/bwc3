@@ -72,6 +72,31 @@ export default function AddCourses() {
             duration,
             modules
         )
+        //MANDA PRO DB
+        fetch("http://localhost:3001/add-course", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                author,
+                experience,
+                email,
+                linkedin,
+                title,
+                description,
+                category,
+                dificulty,
+                duration,
+                modules
+            }),
+        })
+            .then((response) => {
+                return response.text();
+            })
+            .then((data) => {
+                console.log(data);
+            });
     }
 
     return (
