@@ -15,6 +15,12 @@ async function main() {
   console.log(
     `GoodStreamCreator deployed to ${goodStremNFT.target}`
   );
+
+  // find the deployer account
+  const [deployer] = await ethers.getSigners();
+  console.log(
+    `Deployer account address: ${deployer.address}`
+  );
 }
 
 // We recommend this pattern to be able to use async/await everywhere

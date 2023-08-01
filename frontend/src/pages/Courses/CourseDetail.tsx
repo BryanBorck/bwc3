@@ -1,16 +1,60 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import logo from "../../assets/goodstream_logoWHITE.png"
+import { connectMetamask } from '../../utils/connectMetamask';
+import { Framework } from '@superfluid-finance/sdk-core';
+import { ethers } from 'ethers';
 
 export default function CourseDetails() {
-    const { id } = useParams<{ id: string }>()
+    const { id } = useParams<{ id: string }>();
+
+    const [enabled, setEnabled] = React.useState(false);
+
     const [course, setCourse] = React.useState({
         // TESTE
         id: id,
         title: `Course ${id} aaa`,
         description: `Course ${id} ddd description`,
         cover: 'https://picsum.photos/seed/picsum/200/300'
-    })
+    });
+
+    const rate = 0.1 * 60;
+
+    async function handleStreaming() {
+        if(!window.confirm(`Do you want to start streaming?\n You will be paying ${rate} ETH per minute`)) {
+            return;
+        }
+        try{
+            const connection = await connectMetamask();
+            const provider  = connection?.web3Provider;
+            const signer = connection?.web3Signer;
+            const account = connection?.address;
+
+            console.log("account", account);
+
+            const sf = await Framework.create({
+                chainId: 80001,
+                provider: provider as ethers.providers.Web3Provider,
+            });
+
+
+            const superSigner = sf.createSigner({ signer: signer });
+
+            const tokenPayment = await sf.loadSuperToken("fDAIx");
+            let flowOp = tokenPayment.createFlow({
+                sender: account as string,
+                receiver: "0xe4710FCF17dfB136dd0818cC92388B94e7822570",
+                flowRate: rate.toString()
+            });
+
+            await flowOp.exec(superSigner);
+            setEnabled(true);
+        } catch (err) {
+            console.log(err);
+            window.alert("Error while streaming");
+        }
+
+    }
 
     // MACACO
     // React.useEffect(() => {
@@ -38,7 +82,21 @@ export default function CourseDetails() {
                     <div className='flex flex-row w-full'>
                         <div className='w-[75%]'>
                             {/* TROCAR IMG POR VIDEO DPS */}
-                            <img src={course.cover} alt={course.title} className='w-[100%] max-h-[65vh] shadow-md rounded-[15px]' />
+                            
+                            <div 
+                            onClick={handleStreaming}
+                            style={{
+                                cursor: "pointer"
+                            }}
+                            className='w-[100%] max-h-[65vh] shadow-md rounded-[15px]' >
+                                <iframe 
+                                 style={{
+                                    pointerEvents: enabled ? 'all': 'none',
+                                    cursor: "pointer"
+                                }}
+                                width="100%" height="500vh" src="https://www.youtube.com/embed/X6y42QbVSp4?start=1" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+                            </div>
+
                             <section className='flex mt-[3vh]'>
                                 <div className='flex flex-col items-start w-2/3 p-[2vh] rounded-[15px] shadow-md bg-[#fff]'>
                                     <h2 className='text-fl text-secondary-color mb-[2vh]'>Description</h2>
