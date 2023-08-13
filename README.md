@@ -65,6 +65,8 @@ npm run dev
 - Luiz Vasconcelos
 - Daniel Yuki
 
+## Special Thanks
 
+We want to give a special thanks to the BWC Team for their support and the opportunity to build apps that impact people.
 
 
